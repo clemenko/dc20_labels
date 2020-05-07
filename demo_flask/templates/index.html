@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>Docker Flask/Redis/Mongo</title>
+    <style>
+    body  {
+      background-image: url("/static/dockercon-stream2.png");
+      color : white
+      }
+    a { color: white; }
+    </style>
+
+</head>
+<body>
+<div class="container">
+  <!--  <img src=/static/rancherio_logo.png></img> -->
+    <center>
+    <h1>Worlds greatest Docker Flask/Redis/Mysql DEMO!. </h1>
+    <h2> Today's secret is : {{ secret }} </h2>
+    <h2>There have been {{hits}} hits.</h2>
+    <h2>server : {{ server_name }} <br>
+      Your ip : {{ ip }}</h2>
+    <p>Contact me at : <a href="mailto:clemenko@gmail.com">clemenko@gmail.com</a>.</p>
+
+    <br><br><br>
+    <h2> Commands : <h3><br>
+      <a href=/healthz>healthz</a><br>
+      <a href=/info>info</a><br>
+      <a href=/get_my_ip>get_my_ip</a><br>
+      <a href=/list>list</a><br>
+      <a href=/secret>secret</a><br>
+</div>
+</body>
