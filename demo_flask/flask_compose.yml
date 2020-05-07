@@ -1,0 +1,31 @@
+version: "3.4"
+services:
+  app:
+    image: clemenko/flask_demo
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+      labels:
+          com.docker.lb.network: flask_kv
+          com.docker.lb.hosts: app.dockr.life
+          com.docker.lb.port: 5000
+    ports:
+      - 5000:5000
+    networks:
+      db:
+      kv:
+
+  mongo:
+    image: mongo
+    networks:
+      db:
+
+  redis:
+    image: redis:alpine
+    networks:
+      kv:
+
+networks:
+  kv:
+  db:

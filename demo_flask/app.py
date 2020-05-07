@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 import os
 
-version = "0.0000001"
+version = "0.1"
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 redis = Redis(host='redis', port=6379)
@@ -31,11 +31,6 @@ def info(server_name=None):
     #return os.getenv('HOSTNAME') + " : " +  str(redis.get('hits').decode('utf-8')) + " : " + version, 200
     return jsonify(os.getenv('HOSTNAME'),redis.get('hits').decode('utf-8'),version), 200
 
-@app.route('/headers')
-def headers():
-    redis.incr('hits')
-    print(request.__dict__)
-    return 'printed to log', 200
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
