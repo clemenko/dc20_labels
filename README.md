@@ -25,7 +25,7 @@ Creating service flask_app
  - size
  - key=value
 
- Review : docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels.'
+ Review : docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels'
 
 LABEL org.opencontainers.image.authors=$BUILD_SIGNATURE \
       org.opencontainers.image.source="https://github.com/clemenko/dc20_labels/tree/master/demo_flask" \
@@ -41,6 +41,10 @@ LABEL org.opencontainers.image.authors=$BUILD_SIGNATURE \
 ### More Complex
 
 ### CI/CD completion
+
+### Security Concerns
+CVE
+Required Image Label Policy
 
 ### Compose or Kube
 
