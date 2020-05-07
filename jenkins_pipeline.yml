@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh "mkdir $BUILD_TAG"
         git 'https://github.com/clemenko/dc20_labels.git'
-        sh 'cd demo_flask; docker build -t clemenko/flask_demo:pre_prod --build-arg BUILD_DATE=\$(date +%D) --build-arg BUILD_VERSION=0.1 --build-arg COMPOSE="\$(cat flask_compose.yml|base64)" --build-arg K8SYML="\$(cat flask_k8s.yml|base64)" --build-arg BUILD_SIGNATURE=clemenko@gmail.com --build-arg JENKINS_URL=$JENKINS_URL --build-arg BUILD_ID=$BUILD_ID --build-arg BUILD_NUMBER=$BUILD_NUMBER --build-arg GIT_COMMIT=$GIT_COMMIT . '
+        sh 'cd demo_flask; docker build -t clemenko/flask_demo:pre_prod --build-arg BUILD_DATE=\$(date +%D) --build-arg BUILD_VERSION=0.1 --build-arg COMPOSE="\$(cat flask_compose.yml|base64)" --build-arg K8SYML="\$(cat flask_k8s.yml|base64)" --build-arg BUILD_SIGNATURE=clemenko@gmail.com --build-arg JENKINS_URL=$JENKINS_URL --build-arg BUILD_ID=$BUILD_ID --build-arg BUILD_NUMBER=$BUILD_NUMBER --build-arg GIT_COMMIT=$(git log -n 1 --pretty=format:"%h") . '
         sh "echo 'clemenko/flask_demo:pre_prod' >> $BUILD_TAG/rox_images_to_scan"
       }
     }
