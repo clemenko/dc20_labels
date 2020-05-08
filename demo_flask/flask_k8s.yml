@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: clemenko/flask_demo
+        image: clemenko/flask_demo:prod
         ports:
         - containerPort: 5000
         imagePullPolicy: Always

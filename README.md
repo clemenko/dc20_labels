@@ -51,6 +51,10 @@ echo "$(docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels."org.zdock
 
 We can now combine the use of `skopeo` and the labels to pull the labels from remote images.
 
+```bash
+skopeo inspect docker://docker.io/clemenko/flask_demo:prod | jq -r '.Labels."org.zdocker.k8s"'| base64 -D
+```
+
 ### CI/CD completion
 
 There are several labels than should be updated during the CI process. Labels like `org.opencontainers.image.commit` can be VERY useful for tracing back the image to the exact commit to version control. `org.opencontainers.image.build_number` is also useful for tracking the image back to the build number on the build server. And don't forget to include the build server itself at `org.opencontainers.image.build.server`.

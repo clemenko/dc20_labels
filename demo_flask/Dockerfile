@@ -19,7 +19,7 @@ LABEL org.opencontainers.image.authors=$BUILD_SIGNATURE \
       org.opencontainers.image.description="The repository contains a simple flask application. flask --> mongo, flask --> redis." \
       org.opencontainers.image.version=$BUILD_VERSION \
       org.opencontainers.image.healthz="/healthz" \
-      org.opencontainers.image.build="docker build -t clemenko/flask_demo --build-arg BUILD_DATE='$(date +%D)' --build-arg BUILD_VERSION='0.1' --build-arg COMPOSE='$(cat flask_compose.yml|base64)' --build-arg K8SYML='$(cat flask_k8s.yml|base64)' --build-arg BUILD_SIGNATURE='clemenko@gmail.com' --build-arg JENKINS_URL=$JENKINS_URL --build-arg BUILD_NUMBER=$BUILD_NUMBER --build-arg GIT_COMMIT=$(git log -n 1 --pretty=format:'%h') . " \
+      org.opencontainers.image.build="docker build -t clemenko/flask_demo --build-arg BUILD_DATE='$(date +%D)' --build-arg BUILD_VERSION='0.1' --build-arg COMPOSE='$(cat flask_compose.yml|base64)' --build-arg K8SYML='$(cat flask_k8s.yml|base64)' --build-arg BUILD_SIGNATURE='' --build-arg JENKINS_URL=$JENKINS_URL --build-arg BUILD_NUMBER=$BUILD_NUMBER --build-arg GIT_COMMIT=$(git log -n 1 --pretty=format:'%h') . " \
       org.zdocker.compose=$COMPOSE \
       org.zdocker.k8s=$K8SYML 
 
