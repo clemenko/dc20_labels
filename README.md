@@ -10,9 +10,11 @@ One underutilized, and amazing, thing about the docker image scheme is labels. L
 
 ### Why
 
-Containers have the ability to carrying their own metadata. We can use the labels to add a lot of value to the image itself. The types of metadata are almost seamless. Think about the idea of a self documenting image. And even an image that has the information about how to deploy with Compose or Kubernetes.
+Have you ever downloaded an image with complete understanding? Did you know where the image was built? How it was built? Do you trust the image? All these questions are at the heart of container image security. But there is help!
 
-### Schema
+Containers have the ability to carrying their own metadata. We can use the labels to add a lot of value. The types of metadata are almost endless. Would it be nice to have the image provenance attached directly to the image itself. Think about the idea of a self documenting image. And it is even possible for an image to contain the information on how to deploy with Compose or Kubernetes.
+
+### How - Schema
 
 Review size constraints
 
@@ -24,10 +26,10 @@ Here are some examples of labels I like to use.
 "org.opencontainers.image.source": "https://github.com/clemenko/dc20_labels/tree/master/demo_flask",
 "org.opencontainers.image.build": "docker build -t clemenko/flask_demo..." ,
 "org.opencontainers.image.build_number": 22,
-"org.opencontainers.image.build.server": http://jenkins.dockr.life/ \
-"org.opencontainers.image.commit": "98c997f",
+"org.opencontainers.image.build.server": http://jenkins.dockr.life/,
+”org.opencontainers.image.commit": "98c997f",
 "org.opencontainers.image.created": "05/07/20",
-"org.opencontainers.image.description": "The repository contains a simple flask application. flask --> mongo, flask --> redis.",
+"org.opencontainers.image.description": "The repository contains a simple flask application.",
 "org.opencontainers.image.healthz": "/healthz",
 "org.opencontainers.image.version": "0.1",
 "org.opencontainers.image.title": "clemenko/flask_demo",
@@ -39,25 +41,25 @@ Labels can be retrieved with with a `docker pull` and `docker inspect clemenko/f
 
 ### More Complex
 
-Here is where it can get real interesting. What if we encoded the Docker Compose or Kubernetes yamls? What if we could use a single image to manage an entire stack? Here are two examples for using a label to deploy a stack.
+Here is where it can get real interesting. What if we encoded Docker Compose or Kubernetes yamls as a label? What if we could use a single image to manage an entire stack? Here are two examples for using a label to deploy a stack.
 
 ```bash
 #Compose
-echo “$(docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels."org.zdocker.compose"'| base64 -D)" |docker stack deploy -c- flask
+echo “$(docker inspect clemenko/flask_demo:prod | jq -r '.[].Config.Labels."org.zdocker.compose"'| base64 -D)" |docker stack deploy -c- flask
 
 #Kuberntes
-echo "$(docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels."org.zdocker.k8s"'| base64 -D)" | kubectl apply -f -
+echo "$(docker inspect clemenko/flask_demo:prod | jq -r '.[].Config.Labels."org.zdocker.k8s"'| base64 -D)" | kubectl apply -f -
 ```
 
 We can now combine the use of `skopeo` and the labels to pull the labels from remote images.
 
 ```bash
-skopeo inspect docker://docker.io/clemenko/flask_demo:prod | jq -r '.Labels."org.zdocker.k8s"'| base64 -D
+skopeo inspect docker://docker.io/clemenko/flask_demo:prod | jq -r '.Labels."org.zdocker.k8s"'| base64 -D | kubectl apply -f -
 ```
 
 ### CI/CD completion
 
-There are several labels than should be updated during the CI process. Labels like `org.opencontainers.image.commit` can be VERY useful for tracing back the image to the exact commit to version control. `org.opencontainers.image.build_number` is also useful for tracking the image back to the build number on the build server. And don't forget to include the build server itself at `org.opencontainers.image.build.server`.
+There are several labels than could be updated during the CI process. Labels like `org.opencontainers.image.commit` can be VERY useful for tracing back the image to the exact commit to version control. `org.opencontainers.image.build_number` is also useful for tracking the image back to the build number on the build server. And don't forget to include the build server itself at `org.opencontainers.image.build.server`.
 
 Having image provenance is vital to creating a Secure Supply Chain.
 
@@ -65,13 +67,12 @@ Having image provenance is vital to creating a Secure Supply Chain.
 
 One real advantage of using the labels for CI is traceability. We can couple this with a good CVE scanner to provide real feedback to developers about their images. There are some container security platforms that can even create policies to prevent images from deploying that do not include the labels.
 
-Required Image Label Policy
-
 ### Demo
 
 Dockerfile
 Jenkins
 SR
+Required Image Label Policy
 
 ### Demo Env
 
