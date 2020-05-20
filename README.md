@@ -22,19 +22,19 @@ Labels have a key=value structure. Quite simply you can set ANY key and ANY valu
 
 Here are some examples of labels I like to use.
 
-"org.opencontainers.image.authors": "clemenko@gmail.com",
-"org.opencontainers.image.source": "https://github.com/clemenko/dc20_labels/tree/master/demo_flask",
-"org.opencontainers.image.build": "docker build -t clemenko/flask_demo..." ,
-"org.opencontainers.image.build_number": 22,
-"org.opencontainers.image.build.server": http://jenkins.dockr.life/,
-”org.opencontainers.image.commit": "98c997f",
-"org.opencontainers.image.created": "05/07/20",
-"org.opencontainers.image.description": "The repository contains a simple flask application.",
-"org.opencontainers.image.healthz": "/healthz",
-"org.opencontainers.image.version": "0.1",
-"org.opencontainers.image.title": "clemenko/flask_demo",
-"org.zdocker.compose": ... ,
-"org.zdocker.k8s": ...
+- "org.opencontainers.image.authors": "clemenko@gmail.com",
+- "org.opencontainers.image.source": "https://github.com/clemenko/dc20_labels/tree/master/demo_flask",
+- "org.opencontainers.image.build": "docker build -t clemenko/flask_demo..." ,
+- "org.opencontainers.image.build_number": 22,
+- "org.opencontainers.image.build.server": http://jenkins.dockr.life/,
+- ”org.opencontainers.image.commit": "98c997f",
+- "org.opencontainers.image.created": "05/07/20",
+- "org.opencontainers.image.description": "The repository contains a simple flask application.",
+- "org.opencontainers.image.healthz": "/healthz",
+- "org.opencontainers.image.version": "0.1",
+- "org.opencontainers.image.title": "clemenko/flask_demo",
+- "org.zdocker.compose": ... ,
+- "org.zdocker.k8s": ...
 
 Labels can be retrieved with with a `docker pull` and `docker inspect clemenko/flask_demo | jq -r '.[].Config.Labels'`. Or Redhat has a neat too called Skopeo - https://github.com/containers/skopeo 
 `skopeo inspect docker://docker.io/clemenko/flask_demo | jq .Labels`
