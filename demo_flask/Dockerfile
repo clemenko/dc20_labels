@@ -9,7 +9,7 @@ ARG JENKINS_URL
 ARG COMPOSE
 ARG K8SYML
 
-LABEL org.opencontainers.image.authors=$BUILD_SIGNATURE \
+LABEL org.opencontainers.image.authors=BUILD_SIGNATURE \
       org.opencontainers.image.source="https://github.com/clemenko/dc20_labels/tree/master/demo_flask" \
       org.opencontainers.image.created=$BUILD_DATE \
       org.opencontainers.image.build_number=$BUILD_NUMBER \
